@@ -1,0 +1,193 @@
+飞机大战第二版
+增加功能：斜着飞和飞行更加顺畅。
+Html:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>飞机大战</title>
+    <style>
+        .container{
+            width:600px;
+            height:720px;
+            background:#cccccc;
+            margin: 100px auto;
+            position: relative;
+        }
+        #myplane{
+            position: absolute;
+            bottom:10px;
+            left: 275px;
+        }
+    </style>
+    <script>
+
+        function keydownEvent(e) {    <!-- 按下键盘后接收的函数-->
+            var ev = e || event;
+            var keyCode = ev.keyCode;
+
+            console.log(keyCode);
+            <!--根据keyCode的不同判断飞机往哪飞-->
+
+            if(keyCode == Contances.W_KEYCODE){
+                goingUp = true;
+            }
+
+            if(keyCode == Contances.S_KEYCODE){
+                goingDown = true;
+            }
+
+            if(keyCode == Contances.D_KEYCODE){
+               goingRight = true;
+            }
+
+            if(keyCode == Contances.A_KEYCODE){
+               goingLeft = true;
+            }
+
+
+
+            console.log(ev);
+
+        }
+
+        function keyupEvent(e) {    <!-- 按下键盘后接收的函数-->
+            var ev = e || event;
+            var keyCode = ev.keyCode;
+
+            console.log(keyCode);
+            <!--根据keyCode的不同判断飞机往哪飞-->
+            if(keyCode == Contances.W_KEYCODE){
+                goingUp = false;
+            }
+
+            if(keyCode == Contances.D_KEYCODE){
+                goingRight = false;
+            }
+
+            if(keyCode == Contances.A_KEYCODE){
+                goingLeft = false;
+            }
+
+            if(keyCode == Contances.S_KEYCODE){
+                goingDown = false;
+            }
+        }
+
+        //设置游戏的帧动画定时器
+        var gameInterval = setInterval(function () {
+
+            if(goingUp){
+                <!--w飞机正在向上飞-->
+                var oldBottom = $('myplane').style.bottom;     <!--获取原来的bottom-->
+                oldBottom = oldBottom.replace('px','')-0;    <!--将字符串转换为数字-->
+                oldBottom = oldBottom+Contances.STEP;
+
+                //边界碰撞检测
+                if(oldBottom > Contances.BG_HEIGHT-Contances.PLANE_HEIGHT){      <!--如果到头就返回-->
+                    return;
+                }
+
+                $('myplane').style.bottom = oldBottom + "px";        <!--更改oldBottom的值，重新赋值-->
+            }
+
+            if(goingDown){
+                <!--s飞机正在向下飞-->
+                var oldBottom = $('myplane').style.bottom;     <!--获取原来的bottom-->
+                oldBottom = oldBottom.replace('px','')-0;    <!--将字符串转换为数字-->
+                oldBottom = oldBottom-Contances.STEP;
+                if(oldBottom < 0){      <!--如果到头就返回-->
+                    return;
+                }
+
+                $('myplane').style.bottom = oldBottom + "px";        <!--更改oldBottom的值，重新赋值-->
+            }
+
+            if(goingLeft){
+                <!--a飞机正在向左飞-->
+                var x = $('myplane').style.left;     <!--获取原来的x-->
+                x = x.replace('px','')-0;    <!--将字符串转换为数字-->
+                x = x-Contances.STEP;
+                if(x < 0){      <!--如果到头就返回-->
+                    return;
+                }
+
+                $('myplane').style.left = x + "px";        <!--更改x的值，重新赋值-->
+            }
+
+            if(goingRight){
+                <!--d飞机正在向右飞-->
+                var x = $('myplane').style.left;     <!--获取原来的x-->
+                x = x.replace('px','')-0;    <!--将字符串转换为数字-->
+                x = x+Contances.STEP;
+                if(x > Contances.BG_WIDTH-Contances.PLANE_WIDTH){      <!--如果到头就返回-->
+                    return;
+                }
+
+                $('myplane').style.left = x + "px";        <!--更改x的值，重新赋值-->
+            }
+        },42);
+
+    </script>
+    <script src="engins.js"></script>
+</head>
+<body onkeydown="keydownEvent()" onkeyup="keyupEvent()">  <!-- 设置按下键盘的时间-->
+<div class="container" >
+    <img src="img/QQ图片20191125190239.png" height="720" width="600"/>
+
+
+    <img id="myplane" style="width:50px;height:50px;bottom:10px;"  src="img/plane2.png" />
+</div>
+</body>
+</html>
+
+Js:
+
+var  Contances = {
+
+    BG_HEIGHT : 720 ,
+    BG_WIDTH : 600 ,
+
+    PLANE_HEIGHT : 50 ,
+    PLANE_WIDTH : 50 ,
+
+    STEP : 4, //代表小飞机每次移动的步长
+
+    W_KEYCODE : 87,
+    A_KEYCODE : 65,
+    S_KEYCODE : 83,
+    D_KEYCODE : 68,
+}
+
+
+//小飞机
+var planeID = "myplane";
+
+var goingUp = false;
+var goingLeft = false;
+var goingRight = false;
+var goingDown = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+/*
+//获取小飞机的Y轴坐标
+function getY(plane){
+    return plane.style.bottom.replace('px','') - 0;
+}
+
+function getX(plane){
+    return plane.style.left.replace('px','') - 0;
+}
+
+//设置小飞机的Y轴坐标
+function setY(plane,y) {
+    plane.style.bottom = y + "px";
+}
+
+function setX(plane,x) {
+    plane.style.bottom = x + "px";
+}*/
+
