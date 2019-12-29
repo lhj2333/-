@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container{
+            width:800px;
+            height:450px;
+            background:#cccccc;
+            margin: 100px auto;
+            position: relative;
+        }
+        h1{
+            font-size:48px;
+            font-family: 华文楷体 ;
+            color: rgb(232, 240, 255);
+            position:absolute;
+            top:20px;
+            left:45px;
+        }
+        input{
+            position:absolute;
+            top:360px;
+            left:320px;
+            font-size: 20px;
+            padding: 10px 40px;
+            background: transparent;
+            color: #fffdfd;
+            border: 2px solid #a8a3a7;
+            border-radius:8px;
+            font-weight: bold;
+        }
+        #a{
+            position:absolute;
+            top:200px;
+            left:322px;
+            padding:8px;
+            font-size: 20px;
+            color: #f9fffb;
+            text-align: center;
+        }
+        #s{
+            position:absolute;
+            top:280px;
+            left:360px;
+            padding:8px 18px;
+            font-size: 20px;
+            color: #fffdfd;
+            text-align: center;
+        }
+
+    </style>
+    <script src="engins.js"></script>
+    <script language="javascript" type="text/javascript">
+        window.onload=function()
+        {
+            var loc = location.href;
+            var n1 = loc.length;//地址的总长度
+            var n2 = loc.indexOf("=");//取得=号的位置
+            var id = decodeURI(loc.substr(n2+1, n1-n2));//从=号后面的内容
+
+            document.getElementById('s').innerHTML=id;
+        }
+
+
+
+    </script>
+
+
+
+</head>
+<body>
+<div class="container" id="container">
+
+
+
+    <img src="img/结束3.jpg" height="450" width="800"/>
+    <div id="a">你本次的分数为：</div>
+
+    <div id="s"></div>
+
+    <input type="button" id="butt" value="重新开始" onclick="window.location.href='index.html'"/>
+
+
+</div>
+</body>
+</html>
