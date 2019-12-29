@@ -1,0 +1,54 @@
+var time=0;
+var  Contances = {
+
+    BG_HEIGHT : 600 ,
+    BG_WIDTH : 500 ,
+
+    PLANE_HEIGHT : 76 ,
+    PLANE_WIDTH : 60 ,
+    ENEMY_HEIGHT : 45 ,
+    ENEMY_WIDTH : 36 ,
+
+    STEP : 8, //代表小飞机每次移动的步长
+    BULLET_STEP:8,//子弹每次移动的步长
+    ENEMY_STEP: 2,
+
+    ENEMY_APPEAR_FREQ:500,
+
+    W_KEYCODE : 87,
+    A_KEYCODE : 65,
+    S_KEYCODE : 83,
+    D_KEYCODE : 68,
+}
+
+
+//小飞机
+var planeId = "myplane";
+
+var goingUp = false;
+var goingLeft = false;
+var goingRight = false;
+var goingDown = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+
+//获取飞行物的Y轴坐标
+function getY(flyingObject){
+    return flyingObject.style.bottom.replace('px','') - 0;
+}
+
+function getX(flyingObject){
+    return flyingObject.style.left.replace('px','') - 0;
+}
+
+//设置飞行物的Y轴坐标
+function setY(flyingObject,y) {
+    flyingObject.style.bottom = y + "px";
+}
+//设置飞行物的X轴坐标
+function setX(flyingObject,x) {
+    flyingObject.style.left = x + "px";
+}
